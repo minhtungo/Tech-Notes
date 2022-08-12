@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const path = require('path');
-const { logger } = require('./middleware/logger');
+
 const errorHandler = require('./middleware/errorHandler');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -28,6 +28,7 @@ app.use(cookieParser());
 app.use('/', express.static(path.join(__dirname, 'public')));
 
 app.use('/', require('./routes/root'));
+app.use('/users', require('./routes/userRoutes'));
 
 app.all('*', (req, res) => {
   res.status(404);
